@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moon place — хендмейд украшения</title>
+  <style>
+    /* ---------- СБРОС И БАЗОВЫЕ СТИЛИ ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #262130; /* приглушённый тёмно-лавандовый фон */
+      color: #e8e4f2;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --deep: #ece9f5;
+      --mid: #c4bcdc;
+      --soft: #9d90bd;
+      --pastel: #cfc6e8;
+      --light: #332d44;
+      --accent: #a494d1;
+      --accent-soft: #8f7fc0;
+      --white: #2f2940;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 20px 40px -12px rgba(0, 0, 0, 0.35);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ---------- КОНТЕЙНЕР ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- ТИПОГРАФИКА ---------- */
+    h2 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--soft);
+      max-width: 640px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ---------- ШАПКА (ЗАКРЕПЛЁННАЯ) ---------- */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(38, 33, 48, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(164, 148, 209, 0.15);
+      padding: 0.9rem 0;
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-sm);
+      background: rgba(38, 33, 48, 0.95);
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--deep);
+      transition: opacity 0.2s;
+    }
+
+    .logo span {
+      color: var(--accent);
+      font-weight: 300;
+    }
+
+    .logo:hover {
+      opacity: 0.7;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav__link {
+      font-size: 0.95rem;
+      font-weight: 450;
+      color: var(--mid);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .nav__link:hover {
+      color: var(--deep);
+    }
+
+    .nav__link:hover::after {
+      width: 100%;
+    }
+
+    /* бургер */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .burger:hover {
+      background: rgba(164, 148, 209, 0.15);
+    }
+
+    .burger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--deep);
+      border-radius: 4px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .burger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ---------- ГЛАВНЫЙ ЭКРАН (HERO) ---------- */
+    .hero {
+      padding: 4rem 0 5rem;
+      display: flex;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero__title {
+      font-size: clamp(2.8rem, 6vw, 4.6rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--deep);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero__title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--pastel) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 400;
+    }
+
+    .hero__desc {
+      font-size: 1.2rem;
+      color: var(--soft);
+      max-width: 480px;
+      margin-bottom: 2.2rem;
+      line-height: 1.6;
+    }
+
+    .hero__btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #1c1725;
+      font-weight: 500;
+      padding: 1rem 2.6rem;
+      border-radius: 60px;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 12px 24px -10px rgba(30, 26, 43, 0.3);
+      border: none;
+      cursor: pointer;
+    }
+
+    .hero__btn:hover {
+      background: #b5a7dd;
+      transform: translateY(-3px);
+      box-shadow: 0 22px 30px -12px rgba(139, 122, 184, 0.5);
+    }
+
+    .hero__btn:active {
+      transform: translateY(0);
+    }
+
+    .hero__visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero__blob {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1/1;
+      background: radial-gradient(circle at 30% 30%, #4a4162, #3b3450);
+      border-radius: 50% 40% 60% 40% / 50% 60% 40% 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: morph 10s ease-in-out infinite alternate;
+      box-shadow: 0 30px 50px -20px rgba(107, 91, 140, 0.3);
+      container-type: size; /* для масштабирования иконки относительно блоба */
+    }
+
+    .hero__blob-inner {
+      font-size: 46cqw; /* промежуточный размер луны между старым и максимальным */
+      line-height: 1;
+      filter: drop-shadow(0 8px 16px rgba(107, 91, 140, 0.2));
+      transform: rotate(-8deg);
+      transition: transform 0.5s ease;
+    }
+
+    .hero__blob:hover .hero__blob-inner {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    @keyframes morph {
+      0% { border-radius: 50% 40% 60% 40% / 50% 60% 40% 50%; }
+      100% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
+    }
+
+    /* ---------- АНИМАЦИЯ ПОЯВЛЕНИЯ ---------- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- ОБЩИЕ СЕКЦИИ ---------- */
+    section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--pastel));
+      border-radius: 6px;
+      opacity: 0.6;
+    }
+
+    /* ---------- О МАГАЗИНЕ ---------- */
+    .about {
+      background: var(--white);
+    }
+
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about__text p {
+      color: var(--mid);
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .about__quote {
+      font-style: italic;
+      border-left: 4px solid var(--accent-soft);
+      padding-left: 1.4rem;
+      margin-top: 1.8rem;
+      color: var(--soft);
+      font-size: 1.05rem;
+    }
+
+    .about__image {
+      background: var(--light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 5rem;
+      aspect-ratio: 1/1;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .about__image:hover {
+      transform: scale(1.01);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ---------- КАРТОЧКИ ТОВАРОВ ---------- */
+    .products {
+      background: #262130;
+    }
+
+    .products__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.8rem 1.5rem 1.6rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid rgba(139, 122, 184, 0.08);
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+      background: #362f4a;
+      border-color: rgba(164, 148, 209, 0.25);
+    }
+
+    .product-card__emoji {
+      font-size: 2.8rem;
+      margin-bottom: 1.1rem;
+      filter: drop-shadow(0 4px 8px rgba(107, 91, 140, 0.15));
+      transition: transform 0.35s ease;
+    }
+
+    .product-card:hover .product-card__emoji {
+      transform: scale(1.15) rotate(3deg);
+    }
+
+    .product-card__title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .product-card__desc {
+      font-size: 0.92rem;
+      color: var(--soft);
+      margin-bottom: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .product-card__price {
+      font-weight: 500;
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      margin-top: auto;
+    }
+
+    /* ---------- ПРЕИМУЩЕСТВА ---------- */
+    .benefits {
+      background: var(--white);
+    }
+
+    .benefits__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    .benefit-item {
+      background: var(--light);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(139, 122, 184, 0.06);
+    }
+
+    .benefit-item:hover {
+      background: #3a3450;
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .benefit-item__icon {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .benefit-item:hover .benefit-item__icon {
+      transform: scale(1.1);
+    }
+
+    .benefit-item__title {
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+      color: var(--deep);
+    }
+
+    .benefit-item__text {
+      font-size: 0.95rem;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    /* ---------- ОТЗЫВЫ ---------- */
+    .reviews {
+      background: #262130;
+    }
+
+    .reviews__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(139, 122, 184, 0.06);
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .review-card__stars {
+      color: #b7a9d4;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+    }
+
+    .review-card__text {
+      font-style: italic;
+      color: var(--mid);
+      margin-bottom: 1.4rem;
+      line-height: 1.7;
+      font-size: 0.98rem;
+      flex: 1;
+    }
+
+    .review-card__author {
+      font-weight: 500;
+      color: var(--deep);
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .review-card__author::before {
+      content: '—';
+      color: var(--accent-soft);
+    }
+
+    /* ---------- КОНТАКТЫ ---------- */
+    .contacts {
+      background: var(--white);
+    }
+
+    .contacts__wrapper {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contacts__info p {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.1rem;
+      color: var(--mid);
+      font-size: 1.05rem;
+    }
+
+    .contacts__info p span:first-child {
+      font-size: 1.3rem;
+      min-width: 2rem;
+    }
+
+    .contacts__socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      background: var(--light);
+      border-radius: 40px;
+      padding: 0.7rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 450;
+      color: var(--deep);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      border: 1px solid rgba(139, 122, 184, 0.1);
+    }
+
+    .social-link:hover {
+      background: var(--accent);
+      color: var(--white);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .contacts__map-placeholder {
+      background: var(--light);
+      border-radius: var(--radius-lg);
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--soft);
+      box-shadow: var(--shadow-sm);
+      padding: 2rem;
+      text-align: center;
+      transition: background 0.3s;
+      border: 1px solid rgba(139, 122, 184, 0.08);
+    }
+
+    .contacts__map-placeholder:hover {
+      background: #3a3450;
+    }
+
+    /* ---------- ПОДВАЛ ---------- */
+    .footer {
+      background: #1c1725;
+      color: var(--pastel);
+      padding: 2.8rem 0;
+      margin-top: 0;
+    }
+
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer__copy {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer__links a {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .footer__links a:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    /* ---------- АДАПТИВ ---------- */
+    @media (max-width: 900px) {
+      .hero__grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+
+      .hero__desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero__visual {
+        order: -1;
+      }
+
+      .hero__blob {
+        max-width: 280px;
+      }
+
+      .hero__blob-inner {
+        font-size: 68cqw; /* масштабируется от размера блоба на всех экранах */
+      }
+
+      .about__grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .about__image {
+        max-width: 320px;
+        order: -1;
+      }
+
+      .contacts__wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .contacts__map-placeholder {
+        min-height: 180px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .burger {
+        display: flex;
+      }
+
+      .nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(38, 33, 48, 0.98);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        flex-direction: column;
+        padding: 2rem 1.5rem 2.5rem;
+        gap: 1.6rem;
+        border-bottom: 1px solid rgba(164, 148, 209, 0.2);
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease;
+        pointer-events: none;
+        box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .nav__link {
+        font-size: 1.15rem;
+      }
+
+      .header__inner {
+        padding: 0.2rem 0;
+      }
+
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .footer__inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .footer__links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
+      }
+
+      .hero {
+        padding: 2rem 0 3rem;
+        min-height: auto;
+      }
+
+      .hero__title {
+        font-size: 2.4rem;
+      }
+
+      .hero__btn {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+      }
+
+      .products__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .product-card {
+        padding: 1.2rem 0.8rem;
+      }
+
+      .product-card__emoji {
+        font-size: 2.2rem;
+      }
+
+      .product-card__title {
+        font-size: 1rem;
+      }
+
+      .product-card__desc {
+        font-size: 0.8rem;
+      }
+
+      .benefits__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .benefit-item {
+        padding: 1.4rem 0.8rem;
+      }
+
+      .benefit-item__icon {
+        font-size: 2rem;
+      }
+
+      .benefit-item__title {
+        font-size: 1rem;
+      }
+
+      .benefit-item__text {
+        font-size: 0.8rem;
+      }
+
+      .reviews__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contacts__info p {
+        font-size: 0.95rem;
+      }
+
+      .social-link {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ШАПКА С НАВИГАЦИЕЙ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">Moon<span>place</span></a>
+      <nav class="nav" id="nav">
+        <a href="#about" class="nav__link">О магазине</a>
+        <a href="#products" class="nav__link">Украшения</a>
+        <a href="#benefits" class="nav__link">Преимущества</a>
+        <a href="#reviews" class="nav__link">Отзывы</a>
+        <a href="#contacts" class="nav__link">Контакты</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content fade-up">
+          <h1 class="hero__title">
+            Украшения, <em>созданные</em> под луной
+          </h1>
+          <p class="hero__desc">
+            Ручная работа, натуральные камни и металлы. Каждое изделие — маленькая история, созданная с любовью и вниманием к деталям.
+          </p>
+          <a href="#products" class="hero__btn">Смотреть коллекцию</a>
+        </div>
+        <div class="hero__visual fade-up">
+          <div class="hero__blob">
+            <div class="hero__blob-inner">🌕</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- О МАГАЗИНЕ -->
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title fade-up">О магазине</h2>
+        <div class="about__grid">
+          <div class="about__text fade-up">
+            <p>
+              «Moon place» родился из тихой мастерской, где лунный свет встречается с серебром и камнем. 
+              Мы начинали с нескольких пар серёг для друзей — и влюбились в процесс создания украшений, 
+              которые хранят тепло рук.
+            </p>
+            <p>
+              Наша философия проста: украшение — это не просто аксессуар, а продолжение человека. 
+              Мы не делаем массовых вещей. Каждый изгиб, каждый камень выбран вручную, чтобы вы 
+              чувствовали свою уникальность.
+            </p>
+            <div class="about__quote">
+              «Мы верим, что красота — в неидеальности ручной работы и в энергии, которую мастер вкладывает в каждое изделие».
+            </div>
+          </div>
+          <div class="about__image fade-up">
+            ✨🔮✨
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- УКРАШЕНИЯ (6 карточек) -->
+    <section class="products" id="products">
+      <div class="container">
+        <h2 class="section-title fade-up">Изделия ручной работы</h2>
+        <p class="section-subtitle fade-up">Серьги, кольца, браслеты, колье, подвески и броши — каждая вещь в единственном экземпляре.</p>
+        <div class="products__grid">
+          <!-- 1 -->
+          <article class="product-card fade-up">
+            <div class="product-card__emoji">💎</div>
+            <h3 class="product-card__title">Серьги «Лунный камень»</h3>
+            <p class="product-card__desc">Серебро 925, натуральный лунный камень</p>
+            <span class="product-card__price">4 200 ₽</span>
+          </article>
+          <!-- 2 -->
+          <article class="product-card fade-up">
+            <div class="product-card__emoji">💍</div>
+            <h3 class="product-card__title">Кольцо «Туманность»</h3>
+            <p class="product-card__desc">Латунь с родированием, фианит</p>
+            <span class="product-card__price">3 600 ₽</span>
+          </article>
+          <!-- 3 -->
+          <article class="product-card fade-up">
+            <div class="product-card__emoji">📿</div>
+            <h3 class="product-card__title">Браслет «Прилив»</h3>
+            <p class="product-card__desc">Амазонит, вощёный шнур</p>
+            <span class="product-card__price">2 800 ₽</span>
+          </article>
+          <!-- 4 -->
+          <article class="product-card fade-up">
+            <div class="product-card__emoji">🌊</div>
+            <h3 class="product-card__title">Колье «Глубина»</h3>
+            <p class="product-card__desc">Аквамарин, серебряная цепь</p>
+            <span class="product-card__price">6 900 ₽</span>
+          </article>
+          <!-- 5 -->
+          <article class="product-card fade-up">
+            <div class="product-card__emoji">⭐</div>
+            <h3 class="product-card__title">Подвеска «Полярная»</h3>
+            <p class="product-card__desc">Гранат, серебро с чернением</p>
+            <span class="product-card__price">3 200 ₽</span>
+          </article>
+          <!-- 6 -->
+          <article class="product-card fade-up">
+            <div class="product-card__emoji">🦋</div>
+            <h3 class="product-card__title">Брошь «Мотылёк»</h3>
+            <p class="product-card__desc">Медь, эмаль, стеклярус</p>
+            <span class="product-card__price">2 400 ₽</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПРЕИМУЩЕСТВА -->
+    <section class="benefits" id="benefits">
+      <div class="container">
+        <h2 class="section-title fade-up">Преимущества</h2>
+        <div class="benefits__grid">
+          <div class="benefit-item fade-up">
+            <span class="benefit-item__icon">🧑‍🎨</span>
+            <h3 class="benefit-item__title">Ручная работа</h3>
+            <p class="benefit-item__text">Каждое изделие создаётся вручную, без конвейера и шаблонов.</p>
+          </div>
+          <div class="benefit-item fade-up">
+            <span class="benefit-item__icon">💠</span>
+            <h3 class="benefit-item__title">Уникальность</h3>
+            <p class="benefit-item__text">Повторов не бывает — вы получаете вещь в единственном экземпляре.</p>
+          </div>
+          <div class="benefit-item fade-up">
+            <span class="benefit-item__icon">🌿</span>
+            <h3 class="benefit-item__title">Натуральные материалы</h3>
+            <p class="benefit-item__text">Только природные камни, серебро, медь и экологичные шнуры.</p>
+          </div>
+          <div class="benefit-item fade-up">
+            <span class="benefit-item__icon">✏️</span>
+            <h3 class="benefit-item__title">Индивидуальный заказ</h3>
+            <p class="benefit-item__text">Воплотим вашу идею: подберём камень, форму и размер.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОТЗЫВЫ -->
+    <section class="reviews" id="reviews">
+      <div class="container">
+        <h2 class="section-title fade-up">Отзывы покупателей</h2>
+        <div class="reviews__grid">
+          <div class="review-card fade-up">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">«Серьги просто волшебные! Лунный камень переливается, как настоящая луна. Ношу не снимая.»</p>
+            <p class="review-card__author">Анна К.</p>
+          </div>
+          <div class="review-card fade-up">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">«Заказывала кольцо по индивидуальному эскизу. Всё сделали точно, даже лучше, чем я представляла. Спасибо!»</p>
+            <p class="review-card__author">Мария Д.</p>
+          </div>
+          <div class="review-card fade-up">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">«Браслет из амазонита стал моим талисманом. Чувствуется рука мастера и натуральные материалы.»</p>
+            <p class="review-card__author">Ольга В.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- КОНТАКТЫ -->
+    <section class="contacts" id="contacts">
+      <div class="container">
+        <h2 class="section-title fade-up">Контакты</h2>
+        <div class="contacts__wrapper">
+          <div class="contacts__info fade-up">
+            <p><span>🕒</span> Пн–Сб: 11:00 – 20:00, Вс: выходной</p>
+            <p><span>📞</span> +7 (999) 123-45-67</p>
+            <p><span>✉️</span> hello@moonplace.ru</p>
+            <p><span>📍</span> Санкт-Петербург, ул. Лунная, 12 (студия-магазин)</p>
+            <div class="contacts__socials">
+              <a href="#" class="social-link" aria-label="Telegram">✈️ Telegram</a>
+              <a href="#" class="social-link" aria-label="VK">🌐 VK</a>
+              <a href="#" class="social-link" aria-label="Instagram">📷 Instagram</a>
+            </div>
+          </div>
+          <div class="contacts__map-placeholder fade-up">
+            🗺️<br>ул. Лунная, 12
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__copy">© 2025 Moon place — украшения ручной работы</div>
+      <div class="footer__links">
+        <a href="#about">О нас</a>
+        <a href="#products">Каталог</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- БУРГЕР-МЕНЮ ----------
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('nav');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      nav.classList.toggle('open');
+    });
+
+    // Закрыть меню при клике по ссылке
+    document.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('active');
+        nav.classList.remove('open');
+      });
+    });
+
+    // ---------- ИЗМЕНЕНИЕ ШАПКИ ПРИ ПРОКРУТКЕ ----------
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // ---------- АНИМАЦИЯ ПОЯВЛЕНИЯ (Intersection Observer) ----------
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // однократное появление
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Если элементы уже в зоне видимости при загрузке — показать сразу
+    window.addEventListener('load', () => {
+      fadeElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+          el.classList.add('visible');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
