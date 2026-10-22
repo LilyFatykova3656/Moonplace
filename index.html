@@ -410,15 +410,25 @@
       border-color: rgba(164, 148, 209, 0.25);
     }
 
-    .product-card__emoji {
-      font-size: 2.8rem;
+    .product-card__image-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      background: var(--light);
       margin-bottom: 1.1rem;
-      filter: drop-shadow(0 4px 8px rgba(107, 91, 140, 0.15));
+    }
+
+    .product-card__image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       transition: transform 0.35s ease;
     }
 
-    .product-card:hover .product-card__emoji {
-      transform: scale(1.15) rotate(3deg);
+    .product-card:hover .product-card__image-wrap img {
+      transform: scale(1.05);
     }
 
     .product-card__title {
@@ -794,8 +804,8 @@
         padding: 1.2rem 0.8rem;
       }
 
-      .product-card__emoji {
-        font-size: 2.2rem;
+      .product-card__image-wrap {
+        border-radius: var(--radius-sm);
       }
 
       .product-card__title {
@@ -918,45 +928,30 @@
         <div class="products__grid">
           <!-- 1 -->
           <article class="product-card fade-up">
-            <div class="product-card__emoji">💎</div>
-            <h3 class="product-card__title">Серьги «Лунный камень»</h3>
-            <p class="product-card__desc">Серебро 925, натуральный лунный камень</p>
-            <span class="product-card__price">4 200 ₽</span>
+            <div class="product-card__image-wrap">
+              <img src="images/image1.jpg" alt="Изящный комплект украшений в розовом цвете" loading="lazy">
+            </div>
+            <h3 class="product-card__title">Комплект «Розовый рассвет»</h3>
+            <p class="product-card__desc">Изящный набор украшений в нежных розовых тонах</p>
+            <span class="product-card__price">5 400 ₽</span>
           </article>
           <!-- 2 -->
           <article class="product-card fade-up">
-            <div class="product-card__emoji">💍</div>
-            <h3 class="product-card__title">Кольцо «Туманность»</h3>
-            <p class="product-card__desc">Латунь с родированием, фианит</p>
-            <span class="product-card__price">3 600 ₽</span>
+            <div class="product-card__image-wrap">
+              <img src="images/image2.jpg" alt="Стильный обвес для ключей или телефона" loading="lazy">
+            </div>
+            <h3 class="product-card__title">Обвес «Талисман»</h3>
+            <p class="product-card__desc">Стильный аксессуар для ключей или телефона</p>
+            <span class="product-card__price">1 900 ₽</span>
           </article>
           <!-- 3 -->
           <article class="product-card fade-up">
-            <div class="product-card__emoji">📿</div>
-            <h3 class="product-card__title">Браслет «Прилив»</h3>
-            <p class="product-card__desc">Амазонит, вощёный шнур</p>
-            <span class="product-card__price">2 800 ₽</span>
-          </article>
-          <!-- 4 -->
-          <article class="product-card fade-up">
-            <div class="product-card__emoji">🌊</div>
-            <h3 class="product-card__title">Колье «Глубина»</h3>
-            <p class="product-card__desc">Аквамарин, серебряная цепь</p>
-            <span class="product-card__price">6 900 ₽</span>
-          </article>
-          <!-- 5 -->
-          <article class="product-card fade-up">
-            <div class="product-card__emoji">⭐</div>
-            <h3 class="product-card__title">Подвеска «Полярная»</h3>
-            <p class="product-card__desc">Гранат, серебро с чернением</p>
-            <span class="product-card__price">3 200 ₽</span>
-          </article>
-          <!-- 6 -->
-          <article class="product-card fade-up">
-            <div class="product-card__emoji">🦋</div>
-            <h3 class="product-card__title">Брошь «Мотылёк»</h3>
-            <p class="product-card__desc">Медь, эмаль, стеклярус</p>
-            <span class="product-card__price">2 400 ₽</span>
+            <div class="product-card__image-wrap">
+              <img src="images/image3.jpg" alt="Нежный браслет в ангельской тематике" loading="lazy">
+            </div>
+            <h3 class="product-card__title">Браслет «Ангельские крылья»</h3>
+            <p class="product-card__desc">Нежный браслет с ангельской символикой</p>
+            <span class="product-card__price">3 100 ₽</span>
           </article>
         </div>
       </div>
